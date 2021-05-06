@@ -1,4 +1,5 @@
 import time
+from crypto_hash import crypto_hash
 
 class Block:
     """
@@ -27,7 +28,7 @@ class Block:
         """
         timestamp = time.time_ns()
         last_hash = last_block.hash
-        hashy = f'{timestamp}-{last_hash}'
+        hashy = crypto_hash(data)
 
         return Block(timestamp, last_hash, hashy, data)
 

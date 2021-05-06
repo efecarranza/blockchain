@@ -16,7 +16,7 @@ class Blockchain:
 
 def main():
     blockchain = Blockchain()
-    blockchain.add_block('hi')
+    blockchain.add_block([2])
 
     print(blockchain)
 
