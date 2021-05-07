@@ -14,3 +14,6 @@ def test_genesis():
     assert isinstance(genesis, Block)
     for k,v in GENESIS_DATA.items():
         getattr(genesis, k) == v
+
+def test_adjust_difficulty():
+
