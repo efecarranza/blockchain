@@ -14,11 +14,15 @@ class Blockchain:
     def __repr__(self):
         return f'Blockchain: {self.chain}'
 
-def main():
-    blockchain = Blockchain()
-    blockchain.add_block([2])
+    @staticmethod
+    def is_valid_chain(chain):
+        """
+        Validate incoming chain
+        - The chain must start with the genesis block
+        - Blocks must be formatted correctly
+        """
+        if chain[0] != Block.genesis():
+            raise Exception('The genesis block is invalid.')
 
-    print(blockchain)
-
-if __name__ == '__main__':
-    main()
+        for i in range(1, len(chain)):
+            Block.is_valid_block(chain[i-1], chain[i])
