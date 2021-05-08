@@ -13,5 +13,3 @@ def test_verify_invalid_signature():
     signature = wallet.sign(data)
 
     assert Wallet.verify(Wallet().public_key, data, signature) == False
-
-
