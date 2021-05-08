@@ -38,6 +38,15 @@ class Blockchain:
         return [b.to_json() for b in self.chain]
 
     @staticmethod
+    def from_json(chain_json):
+        """
+        Deserialize the blockchain data from JSON.
+        """
+        blockchain = Blockchain()
+        blockchain.chain = [Block.from_json(b) for b in chain_json]
+        return blockchain
+
+    @staticmethod
     def is_valid_chain(chain):
         """
         Validate incoming chain
