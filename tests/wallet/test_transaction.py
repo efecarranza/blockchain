@@ -50,3 +50,19 @@ def test_update_transaction_successful():
     assert transaction.output[wallet.address] == wallet.balance - amount - next_amount - to_first_again
     assert Wallet.verify(transaction.input['public_key'], transaction.output, transaction.input['signature'])
 
+def test_is_valid_transaction():
+    Transaction.is_valid_transaction(Transaction(Wallet(), 'recipient', 50))
+
+def test_is_valid_transaction_invalid_output():
+    wallet = Wallet()
+    transaction = Transaction(Wallet(), 'recipient', 50)
+    transaction.output[wallet.address] = 1000
+    with pytest.raises(Exception, match='Invalid transaction: output values.'):
+        Transaction.is_valid_transaction(transaction)
+
+def test_is_valid_transaction_invalid_signature():
+    transaction = Transaction(Wallet(), 'recipient', 50)
+    transaction.input['signature'] = Wallet().sign(transaction.output)
+
+    with pytest.raises(Exception, match='Invalid signature.'):
+        Transaction.is_valid_transaction(transaction)
