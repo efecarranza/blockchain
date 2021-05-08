@@ -35,7 +35,6 @@ if os.environ.get('PEER') == 'True':
 
     r = requests.get(f'http://localhost:{ROOT_PORT}/blockchain')
     r_blockchain = Blockchain.from_json(r.json())
-    print(r_blockchain)
 
     try:
         blockchain.replace_chain(r_blockchain.chain)
