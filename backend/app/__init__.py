@@ -7,7 +7,7 @@ from backend.pubsub import PubSub
 
 app = Flask(__name__)
 blockchain = Blockchain()
-ps = PubSub()
+ps = PubSub(blockchain)
 
 @app.route('/')
 def index():
@@ -21,8 +21,10 @@ def blockchain_data():
 def mine_block():
     transaction_data = 'mock_transaction_data'
     blockchain.add_block(transaction_data)
+    block = blockchain.chain[-1]
+    ps.broadcast_block(block)
 
-    return jsonify(blockchain.chain[-1].to_json())
+    return jsonify(block.to_json())
 
 PORT = 5000
 

@@ -66,6 +66,13 @@ class Block:
         return Block(timestamp, last_hash, hashy, data, difficulty, nonce)
 
     @staticmethod
+    def from_json(block_json):
+        """
+        Deserialize a block's JSON representation back into a block instance.
+        """
+        return Block(**block_json)
+
+    @staticmethod
     def genesis():
         """
         Generate genesis block.
