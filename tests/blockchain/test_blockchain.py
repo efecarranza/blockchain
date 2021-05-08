@@ -27,3 +27,19 @@ def test_is_valid_chain_bad_genesis_block(blockchain_three_blocks):
     blockchain_three_blocks.chain[0].hash = 'bad_hash'
     with pytest.raises(Exception, match='The genesis block is invalid.'):
         Blockchain.is_valid_chain(blockchain_three_blocks.chain)
+
+def test_replace_chain(blockchain_three_blocks):
+    blockchain = Blockchain()
+    blockchain.replace_chain(blockchain_three_blocks.chain)
+    assert blockchain.chain == blockchain_three_blocks.chain
+
+def test_replace_chain_new_chain_not_longer(blockchain_three_blocks):
+    blockchain = Blockchain()
+    with pytest.raises(Exception, match='Cannot replace: Incoming chain is shorter than existing chain.'):
+        blockchain_three_blocks.replace_chain(blockchain.chain)
+
+def test_replace_chain_bad_chain(blockchain_three_blocks):
+    blockchain = Blockchain()
+    blockchain_three_blocks.chain[1].hash = 'bad_hash'
+    with pytest.raises(Exception, match='Cannot replace: Incoming chain is invalid'):
+        blockchain.replace_chain(blockchain_three_blocks.chain)
