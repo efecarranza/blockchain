@@ -54,6 +54,9 @@ class Transaction:
         self.output[sender_wallet.address] = self.output[sender_wallet.address] - amount
         self.input = self.create_input(sender_wallet, self.output)
 
+    def to_json(self):
+        return self.__dict__
+
     @staticmethod
     def is_valid_transaction(transaction):
         """
