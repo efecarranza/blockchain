@@ -25,8 +25,7 @@ def blockchain_data():
 
 @app.route('/blockchain/mine')
 def mine_block():
-    transaction_data = 'mock_transaction_data'
-    blockchain.add_block(transaction_data)
+    blockchain.add_block(tp.transaction_data())
     block = blockchain.chain[-1]
     ps.broadcast_block(block)
 
