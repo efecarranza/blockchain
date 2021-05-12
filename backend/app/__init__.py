@@ -25,10 +25,13 @@ def blockchain_data():
 
 @app.route('/blockchain/mine')
 def mine_block():
-    blockchain.add_block(tp.transaction_data())
+    transaction_data = tp.transaction_data()
+    transaction_data.append(Transaction.reward_transaction(wallet).to_json())
+    blockchain.add_block(transaction_data)
     block = blockchain.chain[-1]
     ps.broadcast_block(block)
     tp.clear_transactions(blockchain)
+
 
     return jsonify(block.to_json())
 
