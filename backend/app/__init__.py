@@ -6,12 +6,14 @@ from flask import Flask, jsonify, request
 from backend.blockchain.blockchain import Blockchain
 from backend.pubsub import PubSub
 from backend.wallet.transaction import Transaction
+from backend.wallet.transaction_pool import TransactionPool
 from backend.wallet.wallet import Wallet
 
 app = Flask(__name__)
 blockchain = Blockchain()
 wallet = Wallet()
-ps = PubSub(blockchain)
+tp = TransactionPool()
+ps = PubSub(blockchain, tp)
 
 @app.route('/')
 def index():
@@ -33,7 +35,14 @@ def mine_block():
 @app.route('/wallet/transact', methods=['POST'])
 def transact():
     data = request.get_json()
-    transaction = Transaction(wallet, data['recipient'], data['amount'])
+    transaction = tp.existing_transaction(wallet.address)
+
+    if transaction:
+        transaction.update(wallet, data['recipient'], data['amount'])
+    else:
+        transaction = Transaction(wallet, data['recipient'], data['amount'])
+
+    ps.broadcast_transaction(transaction)
 
     return jsonify(transaction.to_json())
 
