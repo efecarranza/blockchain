@@ -8,6 +8,7 @@ chardet==4.0.0
 click==7.1.2
 cryptography==3.4.7
 Flask==1.1.2
+Flask-Cors==3.0.10
 idna==2.10
 importlib-metadata==4.0.1
 iniconfig==1.1.1
@@ -24,6 +25,7 @@ pycryptodomex==3.10.1
 pyparsing==2.4.7
 pytest==6.2.4
 requests==2.25.1
+six==1.16.0
 toml==0.10.2
 typing-extensions==3.10.0.0
 urllib3==1.26.4

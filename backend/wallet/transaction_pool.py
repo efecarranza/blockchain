@@ -17,6 +17,7 @@ class TransactionPool:
         """
         Set a transaction in the transaction pool.
         """
+        print(transaction)
         self.transaction_map[transaction.id] = transaction
 
     def existing_transaction(self, address):
