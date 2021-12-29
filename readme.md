@@ -23,7 +23,7 @@ Make sure to activate the virtual environment.
 python -m backend.app
 ```
 
-# Running a Perr Instance
+# Running a Peer Instance
 
 Make sure to activate the virtual environment.
 
